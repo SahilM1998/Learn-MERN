@@ -1,0 +1,170 @@
+1 -> Hello world using node and express
+
+We will use different dependency such as express mongoDb react
+so we will import these depen in our project
+
+To store all this we will have a package.json file which will have all of these dependency
+Its tells about the meta data
+
+cmd to create a package,json file ----> npm init -y
+
+In this project we will be using backend as Node js and it's framework express js
+
+To install a express package in your project use this cmd ---->npm i express
+
+To use express we have to require it first
+syntax
+const expressOne = requires('express');
+const app = expressOne();
+now expressOne contains multiple functions method and properties and to access them we have a variable app create to use them
+
+app.get(path,callback);
+If we want some data on our page then we will use .get method
+ex on home page we want hello welcome to the home page then we will use
+
+app.get('/home',(req,res)=>{
+res.send('hello welcome to the home page'); ----->since we need to send response from server i.e this content should be Visible
+});
+
+req------>Request
+res------>Response
+
+()=>{} this is fatarrow function
+'/home' it is mentioning which page we are visiting
+
+Now how will server will let to know that some response is made to the port
+so for that we will use listen
+
+app.listen(3000,()=>{
+console.log(`server is running at port=3000`)
+})
+
+app.listen(Port,msg)
+
+----------------------------------------------------------------------------xxx---------------
+
+2 -> Middlewares using NodeJS & Express JS
+
+It will redirect from one page to another
+so it is checking if user is authenticated or not user is genuine or not
+if not the show login page and not the about page
+
+Middleware fuction are the fuctions that have access to the request object,response object and the next function in the application request response cycle
+
+next is a function in express router which when invoked executes the middleware succeeding the current middleware
+
+middleware(); -----> calling a function
+
+defining that fuction
+const middleware = (req,res,next)=>{
+condition to check
+next(); // then move to the requested root
+}
+
+Inshort if we want to visit the page before showing the data we will check using middleware and if true then will will visit that page or we will route to correct page
+
+Inbetween working two page we will used middleware
+
+---------------------------------------------------------------------------xxxx--------------------------
+
+3 -> Connect (Backend to Database) MongoDB Atlas with NodeJS using Mongoose
+
+we will create a new project in mongoDB
+First we have to build a cluster
+then inside that cluster we will create a collection
+In network add IP address also
+
+In collection we are creating a database for the application
+
+then we will have to connect using the connection option
+with username and passowrd these both will be used to connect in project file
+also copy the connection string also for reference
+
+cmd to install mongoose ----> npm i mongoose
+
+to connect Backend to Database
+
+const mongoose = require('mongoose')
+const DB = 'connection string copied from mongo db'
+mongoose.connect(DB).then(()=>{
+console.log(`successful connection`);
+}).catch((err)=>console.log(err));
+
+then()=> promise fulfilled or not
+note add password which we had set and also the database name in the string
+
+------------------------------------------------------------------------------xxxx----------------------
+
+4 -> Secure You Code by Keeping your Password, API Keys Secret with DOTENV
+
+to keep confidential data secure
+
+config.env file
+will staore all the confidential data inside this file
+
+cmd to install dotenv package ---> npm i dotenv
+
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' }); /// to use the data of that config file
+
+const DB = process.env.DATABASE;
+
+if we have mentioned the path of config.env in app.js then there is no need to define process.env in other files
+
+to require a file in app.js
+require('./db/conn');
+
+--------------------------------------------------vvvvvv-----------------------------------------------
+
+5 -> Creating the User Schema & Model
+
+user schema - defines the structure of the document
+
+const mongoose = require('mongoose');
+package require
+
+const userSchema = new mongoose.Schema({
+name:{
+type: String,
+required:true
+},
+email:{
+type: String,
+required:true
+}
+
+})
+new instance created and we have used a class Schema
+
+with the help of models we can connect it the project
+
+const User = mongoose.model(collecton name#USER,userSchema);
+
+to use the User we will export it
+
+module.exports = User;
+
+to use it in app.js suppose we can use it
+const User = require('./model/userSchema')
+
+-------------------------------------------------xxxxx--------------------------------------------------
+
+6 -> Express Router Middleware
+
+we have link the router files to make it easy
+app.use('./router/auth')
+
+cont router = express.Router()
+router.get('/', function)
+
+it worls on top to bottom approach
+
+.get -> it will display data on website
+.post-> jo user ne input kiya hai on website voh milega
+
+to used json data we will use
+app.use(express.json())
+
+-----------------------------------------------------xxxx-------------------------------------------------
+
+7 -> Storing the User Data in the Online Database using Express & Mongoose
