@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 require('../db/conn');
 const User = require('../model/userSchema');
@@ -62,19 +63,27 @@ router.post('/register', async (req, res) => {
             return res.status(422).json({ error: "Email already exists" });
 
         }
+        else if (password != cpassword) {
+            return res.status(422).json({ error: "Incorrect password" });
+        }
+        else {
 
-        const user = new User({ name, email, phone, work, password, cpassword });
+            const user = new User({ name, email, phone, work, password, cpassword });
 
-        // const userRegister = await user.save();
-        await user.save();
-        res.status(201).json({ message: "User registered successfully" });
+            // const userRegister = await user.save();
+            await user.save();
+            res.status(201).json({ message: "User registered successfully" });
 
-        // if (userRegister) {
-        //     res.status(201).json({ message: "User registered successfully" });
-        // }
-        // else {
-        //     res.status(500).json({ error: "Failed to registered" });
-        // }
+            // if (userRegister) {
+            //     res.status(201).json({ message: "User registered successfully" });
+            // }
+            // else {
+            //     res.status(500).json({ error: "Failed to registered" });
+            // }
+
+        }
+
+
 
     }
     catch (err) {
@@ -82,5 +91,49 @@ router.post('/register', async (req, res) => {
     }
 
 });
+
+
+router.post('/signin', async (req, res) => {
+
+    // console.log(req.body);
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ error: "Please fill the required details" });
+
+        }
+
+        const userLogin = await User.findOne({ email: email });
+        //console.log(userLogin);
+
+        if (userLogin) {
+
+            const isMatch = await bcrypt.compare(password, userLogin.password);
+
+            if (!isMatch) {
+                res.status(400).json({ error: "Invalid credentials" });
+            }
+            else {
+                res.json({ mesaage: "User sign in successfully" });
+            }
+
+        }
+        else {
+            res.status(400).json({ error: "Invalid credentials" });
+        }
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+
+
+
+    // res.json({ message: "done" })
+
+});
+
 
 module.exports = router;
