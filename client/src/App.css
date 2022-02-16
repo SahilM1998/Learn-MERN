@@ -28,11 +28,17 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.name {
+  color: blue;
+}
+.navContent {
+  padding: 3rem;
+  font-size: 1.5rem;
+}
+
+/* .nav-link {
+  background-color: blueviolet;
+} */
+.navback {
+  background-color: rgb(13, 214, 214);
 }

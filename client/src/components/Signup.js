@@ -3,8 +3,10 @@ import React from 'react'
 const Signup = () => {
     return (
         <div>
-            <p>Welcome</p>
-            <h1>We are on sign page</h1>
+            <h2>Sign up</h2>
+            <form action="">
+                <label htmlFor=""></label>
+            </form>
         </div>
     )
 }
