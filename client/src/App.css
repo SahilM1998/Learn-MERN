@@ -34,6 +34,7 @@
 .navContent {
   padding: 3rem;
   font-size: 1.5rem;
+  border: blueviolet 3px solid;
 }
 
 /* .nav-link {
@@ -47,6 +48,7 @@
   display: flex;
   padding: 1rem;
   background-color: rgb(13, 214, 214);
+  border: yellow 3px solid;
 }
 .formData {
   margin: 0.2rem;
@@ -54,6 +56,7 @@
   text-align: left;
   align-items: baseline;
   font-size: 1rem;
+  border: rgb(236, 14, 14) 2px solid;
 }
 .signImage {
   margin: 1rem;
@@ -64,4 +67,44 @@
 
 .linkLogin {
   color: lavenderblush;
+}
+
+.mainConatiner {
+  border: black 2px solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pContainer {
+  border: #eb4f07 2px solid;
+  padding: 2rem;
+  margin: auto;
+}
+
+.detailsContainer {
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.dc {
+  border: #eb4f07 4px solid;
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+.textmeassage {
+  border: blue 3px solid;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.homeContainer {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
