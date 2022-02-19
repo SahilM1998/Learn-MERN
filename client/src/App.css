@@ -111,3 +111,11 @@
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+.rowContainer {
+  border: 3px solid red;
+  display: inline-block;
+  margin: 3rem;
+  padding: 2rem;
+  text-align: center;
+}
