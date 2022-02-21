@@ -1,10 +1,11 @@
 import React from 'react'
 import signimage from "../images/login.svg";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 const Signup = () => {
 
+    let history = useNavigate();
     const [user, setUser] = useState({
         name: "", email: "", phone: "", work: "", password: "", cpassword: ""
     });
@@ -17,8 +18,35 @@ const Signup = () => {
 
         setUser({ ...user, [field]: value });
 
+    }
 
+    const postData = async (e) => {
+        e.preventDefault();
 
+        const { name, email, phone, work, password, cpassword } = user;
+
+        const res = await fetch("/register", {
+            method: "POST",
+            header: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, phone, work, password, cpassword
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.status === 422 || !data) {
+            window.alert("Invalid Registration");
+            console.log("Invalid Registration");
+        }
+        else {
+            window.alert("Registration successfully react");
+            console.log("Invalid successfully");
+
+            history.push("/login");
+        }
     }
 
     return (
@@ -28,7 +56,7 @@ const Signup = () => {
                     <h2>
                         Sign Up
                     </h2>
-                    <form>
+                    <form method='POST'>
                         <label htmlFor="name">Name:</label><br /><br />
                         <input type="text" name='name' id='name' autoComplete='off' placeholder='Your name'
                             value={user.name} onChange={handleInputs} />
@@ -63,7 +91,7 @@ const Signup = () => {
                             value={user.cpassword} onChange={handleInputs} />
                         <br /><br />
 
-                        <input type="submit" name='signup' id='signup' value="Register" />
+                        <input type="submit" name='signup' id='signup' value="Register" onClick={postData} />
 
                     </form>
                 </div>
