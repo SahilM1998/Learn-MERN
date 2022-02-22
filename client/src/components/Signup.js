@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Signup = () => {
 
+
     let history = useNavigate();
     const [user, setUser] = useState({
         name: "", email: "", phone: "", work: "", password: "", cpassword: ""
@@ -21,6 +22,8 @@ const Signup = () => {
     }
 
     const postData = async (e) => {
+        console.log('clicked');
+        console.log(user);
         e.preventDefault();
 
         const { name, email, phone, work, password, cpassword } = user;
@@ -29,15 +32,16 @@ const Signup = () => {
             method: "POST",
             header: {
                 "Content-Type": "application/json"
-            },
+            }, "mode": "no-cors",
             body: JSON.stringify({
                 name, email, phone, work, password, cpassword
             })
         });
+        console.log(res);
 
         const data = await res.json();
-
-        if (data.status === 422 || !data) {
+        console.log(res);
+        if (res.status === 422 || !data) {
             window.alert("Invalid Registration");
             console.log("Invalid Registration");
         }
